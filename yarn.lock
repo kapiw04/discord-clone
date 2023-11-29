@@ -3170,6 +3170,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-async-storage/async-storage@npm:1.18.2":
+  version: 1.18.2
+  resolution: "@react-native-async-storage/async-storage@npm:1.18.2"
+  dependencies:
+    merge-options: "npm:^3.0.4"
+  peerDependencies:
+    react-native: ^0.0.0-0 || 0.60 - 0.72 || 1000.0.0
+  checksum: 51c6b524298112c277b89430da7d44f8ca1fdccd60a2cf3c2b3a09b30391de5591704a811959ea9f91e1b3102f422fd6c491bc4d6ddae40994ee1b25f2034cf0
+  languageName: node
+  linkType: hard
+
 "@react-native-community/cli-clean@npm:11.3.7":
   version: 11.3.7
   resolution: "@react-native-community/cli-clean@npm:11.3.7"
@@ -4357,7 +4368,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"base64-js@npm:^1.1.2, base64-js@npm:^1.2.3, base64-js@npm:^1.3.1, base64-js@npm:^1.5.1":
+"base64-js@npm:^1.1.2, base64-js@npm:^1.2.3, base64-js@npm:^1.3.0, base64-js@npm:^1.3.1, base64-js@npm:^1.5.1":
   version: 1.5.1
   resolution: "base64-js@npm:1.5.1"
   checksum: f23823513b63173a001030fae4f2dabe283b99a9d324ade3ad3d148e218134676f1ee8568c877cd79ec1c53158dcf2d2ba527a97c606618928ba99dd930102bf
@@ -5399,9 +5410,11 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.20.0"
     "@expo/vector-icons": "npm:^13.0.0"
+    "@react-native-async-storage/async-storage": "npm:1.18.2"
     "@react-navigation/native": "npm:^6.0.2"
     "@types/react": "npm:~18.2.14"
     expo: "npm:~49.0.18"
+    expo-auth-session: "npm:~5.0.2"
     expo-font: "npm:~11.4.0"
     expo-linking: "npm:~5.0.2"
     expo-router: "npm:^2.0.0"
@@ -5422,6 +5435,7 @@ __metadata:
     react-native-web: "npm:~0.19.6"
     react-test-renderer: "npm:18.2.0"
     typescript: "npm:^5.1.3"
+    zustand: "npm:^4.4.7"
   languageName: unknown
   linkType: soft
 
@@ -5761,6 +5775,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-auth-session@npm:~5.0.2":
+  version: 5.0.2
+  resolution: "expo-auth-session@npm:5.0.2"
+  dependencies:
+    expo-constants: "npm:~14.4.2"
+    expo-crypto: "npm:~12.4.0"
+    expo-linking: "npm:~5.0.0"
+    expo-web-browser: "npm:~12.3.0"
+    invariant: "npm:^2.2.4"
+    qs: "npm:^6.11.0"
+  checksum: 65a071241b289f1eda6db688a1a04dc57efe722de13e9c302160160e7463770d2a335f7b7d1aaf0265605cea0c697db184e9e559e30c8885e2f6899fc4d5483c
+  languageName: node
+  linkType: hard
+
 "expo-constants@npm:~14.4.2":
   version: 14.4.2
   resolution: "expo-constants@npm:14.4.2"
@@ -5770,6 +5798,17 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 9230f7a987f01112812ec659b62301cb71553da0451d7f8d19d7df5928591dd676caac7856b5986f6f1af73d01a2db3f10ce27254e071c419a7bca85889f67dc
+  languageName: node
+  linkType: hard
+
+"expo-crypto@npm:~12.4.0":
+  version: 12.4.1
+  resolution: "expo-crypto@npm:12.4.1"
+  dependencies:
+    base64-js: "npm:^1.3.0"
+  peerDependencies:
+    expo: "*"
+  checksum: 806c4f1dced084715d5bb031a36006e394f55f8082cd341b4aba4789f2985eec191a7eeb8ed3e11e204bf31a26622ffe8d323f0ffe6a0133b7484e644a85700d
   languageName: node
   linkType: hard
 
@@ -5817,7 +5856,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-linking@npm:~5.0.2":
+"expo-linking@npm:~5.0.0, expo-linking@npm:~5.0.2":
   version: 5.0.2
   resolution: "expo-linking@npm:5.0.2"
   dependencies:
@@ -5924,7 +5963,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-web-browser@npm:~12.3.2":
+"expo-web-browser@npm:~12.3.0, expo-web-browser@npm:~12.3.2":
   version: 12.3.2
   resolution: "expo-web-browser@npm:12.3.2"
   dependencies:
@@ -7078,6 +7117,13 @@ __metadata:
   version: 1.1.0
   resolution: "is-plain-obj@npm:1.1.0"
   checksum: daaee1805add26f781b413fdf192fc91d52409583be30ace35c82607d440da63cc4cac0ac55136716688d6c0a2c6ef3edb2254fecbd1fe06056d6bd15975ee8c
+  languageName: node
+  linkType: hard
+
+"is-plain-obj@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "is-plain-obj@npm:2.1.0"
+  checksum: e5c9814cdaa627a9ad0a0964ded0e0491bfd9ace405c49a5d63c88b30a162f1512c069d5b80997893c4d0181eadc3fed02b4ab4b81059aba5620bfcdfdeb9c53
   languageName: node
   linkType: hard
 
@@ -8380,6 +8426,15 @@ __metadata:
   version: 0.2.0
   resolution: "memory-cache@npm:0.2.0"
   checksum: d4fe58865dfdc252db18ae152ab6c9d62868cfc42d5e7f6cf30732fcf27f5f1f8d7b179c3b6f26f31a28ab1cc5c3937215c60aa9e8ad7ea8ff35e79f69ef14da
+  languageName: node
+  linkType: hard
+
+"merge-options@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "merge-options@npm:3.0.4"
+  dependencies:
+    is-plain-obj: "npm:^2.1.0"
+  checksum: 02b5891ceef09b0b497b5a0154c37a71784e68ed71b14748f6fd4258ffd3fe4ecd5cb0fd6f7cae3954fd11e7686c5cb64486daffa63c2793bbe8b614b61c7055
   languageName: node
   linkType: hard
 
@@ -11726,7 +11781,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:^1.0.0":
+"use-sync-external-store@npm:1.2.0, use-sync-external-store@npm:^1.0.0":
   version: 1.2.0
   resolution: "use-sync-external-store@npm:1.2.0"
   peerDependencies:
@@ -12232,5 +12287,25 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: dceb44c28578b31641e13695d200d34ec4ab3966a5729814d5445b194933c096b7ced71494ce53a0e8820685d1d010df8b2422e5bf2cdea7e469d97ffbea306f
+  languageName: node
+  linkType: hard
+
+"zustand@npm:^4.4.7":
+  version: 4.4.7
+  resolution: "zustand@npm:4.4.7"
+  dependencies:
+    use-sync-external-store: "npm:1.2.0"
+  peerDependencies:
+    "@types/react": ">=16.8"
+    immer: ">=9.0"
+    react: ">=16.8"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    immer:
+      optional: true
+    react:
+      optional: true
+  checksum: de507f09eb79039d74d282df6ffac6c7fb6b840ca3620b0392bcbe3f9049902802db5448b4002e6fcb32f903f7ec1aea14602049eb2a3a8410bfea7186d72fb7
   languageName: node
   linkType: hard

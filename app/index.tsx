@@ -1,10 +1,11 @@
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
 import { StyleSheet, View, Text } from "react-native";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { auth, provider } from "../firebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebaseConfig";
+import { useAuthStore } from "../stores/auth";
 
 const defaultValues = {
   email: "",
@@ -12,30 +13,30 @@ const defaultValues = {
   repeatPassword: "",
 };
 
-export default function TabOneScreen() {
-  const { control, handleSubmit } = useForm({ defaultValues });
+export default function Register() {
+  const { control, handleSubmit, setError } = useForm({ defaultValues });
+  const { setUser } = useAuthStore();
+  const router = useRouter();
 
-  const onSubmit = (values: typeof defaultValues) => {
-    console.log(values);
-  };
-
-  const registerWithGoogle = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        console.log(result);
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        console.log(credential);
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
+  const onSubmit = async ({
+    email,
+    password,
+    repeatPassword,
+  }: typeof defaultValues) => {
+    if (password !== repeatPassword) {
+      setError("repeatPassword", { message: "Passwords are not identical!" });
+    }
+    try {
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      setUser(user);
+      router.push("/home");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -47,21 +48,28 @@ export default function TabOneScreen() {
           control={control}
           placeholder="Type in your email"
           label="email"
+          required
+          pattern={
+            /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+          }
         />
         <TextInput
           name="password"
           control={control}
           placeholder="Type in your password"
           label="Password"
+          required
+          password
         />
         <TextInput
           name="repeatPassword"
           control={control}
           placeholder="Repeat your password"
           label="Repeat password"
+          required
+          password
         />
         <Button onPress={handleSubmit(onSubmit)} label="Register" />
-        <Button onPress={registerWithGoogle} label="Register with Google" />
       </View>
       <Link href="/login">Login</Link>
     </View>

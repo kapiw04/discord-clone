@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, Pressable } from "react-native";
 
 type ButtonProps = {
   onPress: () => unknown;
@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#444",
     borderRadius: 5,
+    padding: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
