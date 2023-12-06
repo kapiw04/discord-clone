@@ -4,17 +4,20 @@ import Button from "./Button";
 import { doc, setDoc } from "firebase/firestore";
 import { firestoreDB } from "../firebaseConfig";
 import { useAuthStore } from "../stores/auth";
+import { useRouter } from "expo-router";
 
 const RoomCreator: FC = () => {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const auth = useAuthStore();
+  const router = useRouter();
 
-  const createRoom = () => {
+  const createRoom = async () => {
     if (!auth.user?.email) return null;
-    setDoc(doc(firestoreDB, `rooms/${name}/`), {
+    await setDoc(doc(firestoreDB, `rooms/${name}/`), {
       messages: [{ username: auth.user.email, message }],
     });
+    router.push(`/room/${name}`);
   };
 
   return (

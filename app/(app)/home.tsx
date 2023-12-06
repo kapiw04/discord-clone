@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "#F4FCFF",
     elevation: 2,
-    shadowOffset: { width: 1, height: 1 },
+    shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.2,
     overflow: "hidden",
     shadowColor: "black",

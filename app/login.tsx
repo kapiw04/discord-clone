@@ -1,4 +1,4 @@
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
 import { StyleSheet, View, Text } from "react-native";
 import TextInput from "../components/TextInput";
@@ -7,6 +7,8 @@ import { auth } from "../firebaseConfig";
 import { useAuthStore } from "../stores/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { EMAIL_REGEX } from "../helpers/constants";
+import { useEffect } from "react";
+import usePersistedUser from "../helpers/hooks/usePersistedUser";
 
 const defaultValues = {
   email: "",
@@ -17,6 +19,7 @@ export default function Login() {
   const { control, handleSubmit } = useForm({ defaultValues });
   const { setUser } = useAuthStore();
   const router = useRouter();
+  usePersistedUser();
 
   const navigateToRegister = () => router.push("/register");
 
