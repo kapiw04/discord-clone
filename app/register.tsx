@@ -1,28 +1,40 @@
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
 import { StyleSheet, View, Text } from "react-native";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import { useAuthStore } from "../stores/auth";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { EMAIL_REGEX } from "../helpers/constants";
 
 const defaultValues = {
   email: "",
   password: "",
+  repeatPassword: "",
 };
 
-export default function Login() {
-  const { control, handleSubmit } = useForm({ defaultValues });
+export default function Register() {
+  const { control, handleSubmit, setError } = useForm({ defaultValues });
   const { setUser } = useAuthStore();
   const router = useRouter();
 
-  const navigateToRegister = () => router.push("/register");
+  const navigateToLogin = () => router.push("/login");
 
-  const onSubmit = async ({ email, password }: typeof defaultValues) => {
+  const onSubmit = async ({
+    email,
+    password,
+    repeatPassword,
+  }: typeof defaultValues) => {
+    if (password !== repeatPassword) {
+      setError("repeatPassword", { message: "Hasła nie są identyczne!" });
+    }
     try {
-      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       setUser(user);
       router.push("/home");
     } catch (error) {
@@ -32,12 +44,12 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Logowanie</Text>
+      <Text style={styles.title}>Rejestracja</Text>
       <View style={styles.formContainer}>
         <TextInput
           name="email"
           control={control}
-          placeholder="Email"
+          placeholder="email"
           required
           pattern={EMAIL_REGEX}
         />
@@ -48,14 +60,17 @@ export default function Login() {
           required
           password
         />
+        <TextInput
+          name="repeatPassword"
+          control={control}
+          placeholder="Powtórz hasło"
+          required
+          password
+        />
       </View>
       <View style={styles.buttonContainer}>
-        <Button onPress={handleSubmit(onSubmit)} label="Zaloguj się" />
-        <Button
-          onPress={navigateToRegister}
-          label="Zarejestruj się"
-          secondary
-        />
+        <Button onPress={handleSubmit(onSubmit)} label="Zarejestruj się" />
+        <Button onPress={navigateToLogin} label="Zaloguj się" secondary />
       </View>
     </View>
   );

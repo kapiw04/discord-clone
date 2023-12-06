@@ -10,7 +10,6 @@ import { TextInput as RNTextInput, View, StyleSheet, Text } from "react-native";
 
 type TextInputProps<T extends FieldValues> = {
   placeholder: string;
-  label: string;
   control: Control<T>;
   name: Path<T>;
   required?: boolean;
@@ -20,7 +19,6 @@ type TextInputProps<T extends FieldValues> = {
 
 const TextInput = <T extends FieldValues>({
   placeholder,
-  label,
   control,
   name,
   required,
@@ -43,7 +41,6 @@ const TextInput = <T extends FieldValues>({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
       <RNTextInput
         style={styles.input}
         placeholder={placeholder}
@@ -60,13 +57,12 @@ const TextInput = <T extends FieldValues>({
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    minWidth: 300,
   },
   input: {
-    width: "100%",
-    borderWidth: 1,
-    borderColor: "#888",
+    backgroundColor: "#E4E5E8",
     borderRadius: 2,
+    padding: 8,
   },
   label: {
     fontSize: 14,

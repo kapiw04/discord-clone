@@ -1,15 +1,11 @@
-import { Text, View, StyleSheet, FlatList, TextInput } from "react-native";
-import { useLocalSearchParams } from "expo-router";
-import React, { useEffect, useState } from "react";
-import {
-  FieldValue,
-  addDoc,
-  doc,
-  onSnapshot,
-  updateDoc,
-} from "firebase/firestore";
+import { View, StyleSheet, FlatList } from "react-native";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+import React, { useEffect, useRef, useState } from "react";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { firestoreDB } from "../../../firebaseConfig";
 import { useAuthStore } from "../../../stores/auth";
+import Message from "../../../components/Message";
+import SendMessage from "../../../components/SendMessage";
 
 type Message = {
   username: string;
@@ -20,7 +16,8 @@ export default function Room() {
   const local = useLocalSearchParams();
   const [messages, setMessages] = useState<Array<Message>>([]);
   const auth = useAuthStore();
-  console.log(auth.user);
+  const navigation = useNavigation();
+  const ref = useRef<FlatList>(null);
 
   const sendMessage = (message: string) => {
     updateDoc(doc(firestoreDB, `rooms/${local.roomId}/`), {
@@ -30,10 +27,12 @@ export default function Room() {
 
   useEffect(() => {
     if (typeof local.roomId !== "string") return;
+    navigation.setOptions({ headerTitle: local.roomId });
     const unsub = onSnapshot(
       doc(firestoreDB, `rooms/${local.roomId}`),
       (doc) => {
         setMessages(doc.data()?.messages);
+        ref.current?.scrollToEnd();
       }
     );
     return unsub;
@@ -43,22 +42,15 @@ export default function Room() {
 
   return (
     <View style={styles.container}>
-      <Text>Room: {local.roomId}</Text>
       <FlatList
+        ref={ref}
+        style={{ flex: 1, width: "86%" }}
         data={messages}
         renderItem={({ item: { message, username } }) => (
-          <View>
-            <Text>
-              {username}: {message}
-            </Text>
-          </View>
+          <Message email={username} message={message} />
         )}
       />
-      <TextInput
-        style={styles.input}
-        placeholder="Enter your message..."
-        onSubmitEditing={(event) => sendMessage(event.nativeEvent.text)}
-      />
+      <SendMessage sendMessage={sendMessage} />
     </View>
   );
 }
@@ -70,11 +62,5 @@ const styles = StyleSheet.create({
   },
   roomButton: {
     padding: 20,
-  },
-  input: {
-    width: "100%",
-    borderWidth: 1,
-    borderColor: "#888",
-    borderRadius: 2,
   },
 });
