@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable } from "react-native";
 import BackArrow from "../assets/images/back-arrow.svg";
 import { useRouter } from "expo-router";
 

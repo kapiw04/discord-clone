@@ -1,13 +1,10 @@
 import { Redirect, Stack } from "expo-router";
 import { useAuthStore } from "../../stores/auth";
-import usePersistedUser from "../../helpers/hooks/usePersistedUser";
 
 export default function AppLayout() {
   const { user } = useAuthStore();
 
-  const persistedUser = usePersistedUser();
-
-  if (!user && !persistedUser) {
+  if (!user) {
     return <Redirect href="/login" />;
   }
 
