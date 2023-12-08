@@ -8,7 +8,6 @@ import { useAuthStore } from "../stores/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { EMAIL_REGEX } from "../helpers/constants";
 import { useEffect } from "react";
-import usePersistedUser from "../helpers/hooks/usePersistedUser";
 
 const defaultValues = {
   email: "",
@@ -17,9 +16,8 @@ const defaultValues = {
 
 export default function Login() {
   const { control, handleSubmit } = useForm({ defaultValues });
-  const { setUser } = useAuthStore();
+  const { setUser, user } = useAuthStore();
   const router = useRouter();
-  usePersistedUser();
 
   const navigateToRegister = () => router.push("/register");
 
@@ -32,6 +30,12 @@ export default function Login() {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      router.push("/home/");
+    }
+  }, []);
 
   return (
     <View style={styles.container}>

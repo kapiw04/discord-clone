@@ -1,12 +1,21 @@
 import { Link, useRouter } from "expo-router";
 import { StyleSheet, View, Text } from "react-native";
 import Button from "../components/Button";
+import { useEffect } from "react";
+import { useAuthStore } from "../stores/auth";
 
 export default function Register() {
   const router = useRouter();
+  const { user } = useAuthStore();
 
   const navigateToLogin = () => router.push("/login");
   const navigateToRegister = () => router.push("/register");
+
+  useEffect(() => {
+    if (user) {
+      router.push("/home/");
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
