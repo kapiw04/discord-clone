@@ -20,7 +20,7 @@ export default function Register() {
         router.push("/home/");
       }
     }
-  }, [user]);
+  }, [user, rootNavigationState?.key]);
 
   return (
     <View
