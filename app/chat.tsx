@@ -2,7 +2,8 @@ import { doc, getDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import { firestoreDB } from "../firebaseConfig";
-import { Form } from "react-hook-form";
+import Message from "../components/Message";
+import SendMessage from "../components/SendMessage";
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
@@ -28,11 +29,11 @@ export default function Chat() {
 
       <View>
         {messages.map(({ message, username }) => (
-          <Text>
-            {username}: {message}
-          </Text>
+          <Message key={message} message={message} username={username} />
         ))}
       </View>
+
+      <SendMessage />
     </>
   );
 }
