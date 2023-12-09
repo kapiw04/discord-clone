@@ -17,7 +17,7 @@ export default function Register() {
   useEffect(() => {
     if (user) {
       if (user && rootNavigationState?.key) {
-        router.push("/home/");
+        router.push("/chat/");
       }
     }
   }, [user, rootNavigationState?.key]);
