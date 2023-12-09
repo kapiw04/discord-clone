@@ -23,12 +23,13 @@ export default function Message({ message, username }: MessageProps) {
 const styles = StyleSheet.create({
   container: {
     alignItems: "flex-start",
-    marginBottom: 10,
-    marginLeft: 10,
+    maxWidth: "80%",
+    padding: 1000,
   },
   userText: {
     fontWeight: "bold",
     marginRight: 5,
+    padding: 1000,
   },
   usernameText: {
     fontWeight: "bold",
@@ -36,5 +37,9 @@ const styles = StyleSheet.create({
   },
   messageText: {
     fontSize: 16,
+    color: "white",
+    borderRadius: 5,
+    backgroundColor: "#276B82",
+    padding: 1000,
   },
 });
