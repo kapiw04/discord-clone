@@ -14,7 +14,6 @@ export default function Chat() {
     const getData = async () => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data().messages);
         setMessages(docSnap.data().messages);
       } else {
         console.log("No such document!");
